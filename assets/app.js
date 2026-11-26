@@ -237,6 +237,6 @@
     else if (e.key === 'ArrowLeft') go(cur + (lang === 'ar' ? 1 : -1));
     else if (q.type === 'mcq' && /^[1-4]$/.test(e.key) && st.a[q.n] == null) { st.a[q.n] = +e.key - 1; save(); qView(); }
   });
-  window.addEventListener('hashchange', function () { if (!/^#\/exam\//.test(location.hash)) { exam = null; } view = 'q'; render(); });
+  window.addEventListener('hashchange', function () { if (!/^#\/exam\//.test(location.hash)) { exam = null; } else if (exam) { var mm = location.hash.match(/^#\/exam\/([\w-]+)\/(\d+)/); if (mm && mm[1] === exam.id) { cur = Math.max(0, Math.min(exam.questions.length - 1, +mm[2] - 1)); st.i = cur; } } view = 'q'; showMap = false; render(); });
   render();
 })();
